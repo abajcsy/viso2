@@ -16,6 +16,8 @@
 // to remove after debugging
 #include <opencv2/highgui/highgui.hpp>
 
+using namespace std;
+
 namespace viso2_ros
 {
 
@@ -93,6 +95,7 @@ protected:
   {
     // read calibration info from camera info message
     // to fill remaining parameters
+    cout << "INITIALIZING ODOMETER...";
     image_geometry::StereoCameraModel model;
     model.fromCameraInfo(*l_info_msg, *r_info_msg);
     visual_odometer_params_.base = model.baseline();
@@ -323,6 +326,8 @@ protected:
 int main(int argc, char **argv)
 {
   ros::init(argc, argv, "stereo_odometer");
+  ROS_INFO("Starting Stereo Odometer");
+  cout << "Starting Stereo Odometer";
   if (ros::names::remap("stereo") == "stereo") {
     ROS_WARN("'stereo' has not been remapped! Example command-line usage:\n"
              "\t$ rosrun viso2_ros stereo_odometer stereo:=narrow_stereo image:=image_rect");
